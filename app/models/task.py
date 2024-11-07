@@ -4,8 +4,7 @@ from sqlalchemy.orm import relationship
 from app.models import *
 
 class Task(Base): # создаем таблицу БД
-    __tablename__ = 'tasks' # с названием "категории"
-    # __table_args__ = {'keep_existing': True}
+    __tablename__ = 'tasks' # с названием "задачи"
     id = Column(Integer, primary_key=True, index=True) # далее создаём столбцы
     title = Column(String)
     content = Column(String)
