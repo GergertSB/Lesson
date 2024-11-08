@@ -53,7 +53,7 @@ async def update_user(get_db: Annotated[Session, Depends(get_db)], user_id: int,
                                        slug=slugify(update_user.username)))
     get_db.commit()
     return {'status_code': status.HTTP_200_OK,
-             'transaction': 'User update is successful!'}
+             'transaction': 'Пользователь не был найден!'}
 
 @router.delete('/delete')
 async def delete_user(get_db: Annotated[Session, Depends(get_db)], user_id: int):
@@ -63,7 +63,7 @@ async def delete_user(get_db: Annotated[Session, Depends(get_db)], user_id: int)
             status_code=status.HTTP_404_NOT_FOUND,
             detail='Такой записи не существует'
         )
-    get_db.execute(update(User).where(User.id == user_id).values(is_active=False))
+    get_db.execute(delete(User).where(User.id == user_id).values(is_active=False))
     get_db.commit()
     return {'status_code': status.HTTP_200_OK,
-            'transaction': 'User update is successful!'}
+            'transaction': 'Такого пользователя не существует!'}
